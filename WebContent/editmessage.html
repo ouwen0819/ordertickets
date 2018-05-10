@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+	.ajax({
+		type : "GET",
+		url : "getusermessage",
+		dataType : "json",
+		success : function(data) {
+			for ( var p in data) {
+				document.getElementsByName("name")[0].value = data['name'];
+				document.getElementsByName("age")[0].value = data['age'];
+				document.getElementsByName("sex")[0].value = data['sex'];
+				document.getElementsByName("idcard")[0].value = data['idcard'];
+				document.getElementsByName("birthdate")[0].value = data['birthdate'];
+				document.getElementsByName("uuid")[0].value = data['uuid'];
+			}
+		}
+	});
+</script>
+</head>
+<body>
+	<form action="editusermessage" method="post">
+		<input type="hidden" name="uuid"> <label>真实姓名： </label><input
+			type="text" name="name"> <br> <label>年龄：</label><input
+			type="text" name="age"><br> <label>性别：</label><input
+			type="text" name="sex"><br> <label>身份证号：</label><input
+			type="text" name="idcard"><br> <label>出生日期：</label><input
+			type="date" name="birthdate"><br> <input type="submit"
+			value="提交">
+	</form>
+</body>
+</html>

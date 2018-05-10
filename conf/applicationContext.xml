@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<context:property-placeholder location="classpath:db.properties" />
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${c3p0.user}"></property>
+		<property name="password" value="${c3p0.password}"></property>
+		<property name="driverClass" value="${c3p0.driverClass}"></property>
+		<property name="jdbcUrl" value="${c3p0.url}"></property>
+
+		<property name="initialPoolSize" value="${c3p0.initPoolSize}"></property>
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}"></property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+		<property name="mappingLocations" value="classpath:com/jmu/orderticket/bean/*.hbm.xml"></property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut expression="execution(* com.jmu.orderticket.service.*.*(..))"
+			id="txPointcut" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config>
+
+	<bean id="checkImgAction" class="com.jmu.orderticket.action.CheckImgAction"
+		scope="prototype">
+	</bean>
+
+	<bean id="userDaoImpl" class="com.jmu.orderticket.daoImpl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="adminDaoImpl" class="com.jmu.orderticket.daoImpl.AdminDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="userMessageDaoImpl" class="com.jmu.orderticket.daoImpl.UserMessageDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="ticketsDaoImpl" class="com.jmu.orderticket.daoImpl.TicketsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="ordersDaoImpl" class="com.jmu.orderticket.daoImpl.OrdersDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="flightDaoImpl" class="com.jmu.orderticket.daoImpl.FlightDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="flightDateDaoImpl" class="com.jmu.orderticket.daoImpl.FlightDateDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="userServiceImpl" class="com.jmu.orderticket.serviceImpl.UserServiceImpl">
+		<property name="userDao" ref="userDaoImpl"></property>
+	</bean>
+
+	<bean id="adminServiceImpl" class="com.jmu.orderticket.serviceImpl.AdminServiceImpl">
+		<property name="admindao" ref="adminDaoImpl"></property>
+	</bean>
+
+	<bean id="userMessageServiceImpl" class="com.jmu.orderticket.serviceImpl.UserMessageServiceImpl">
+		<property name="userMessageDao" ref="userMessageDaoImpl"></property>
+	</bean>
+
+	<bean id="ticketsServiceImpl" class="com.jmu.orderticket.serviceImpl.TicketsServiceImpl">
+		<property name="ticketsDao" ref="ticketsDaoImpl"></property>
+	</bean>
+
+	<bean id="ordersServiceImpl" class="com.jmu.orderticket.serviceImpl.OrdersServiceImpl">
+		<property name="ordersDao" ref="ordersDaoImpl"></property>
+	</bean>
+
+	<bean id="flightServiceImpl" class="com.jmu.orderticket.serviceImpl.FlightServiceImpl">
+		<property name="flightdao" ref="flightDaoImpl"></property>
+	</bean>
+
+	<bean id="flightDateServiceImpl" class="com.jmu.orderticket.serviceImpl.FlightDateServiceImpl">
+		<property name="flightDateDao" ref="flightDateDaoImpl"></property>
+	</bean>
+
+	<bean id="userAction" class="com.jmu.orderticket.action.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userServiceImpl"></property>
+		<property name="adminService" ref="adminServiceImpl"></property>
+	</bean>
+
+	<bean id="userMessageAction" class="com.jmu.orderticket.action.UserMessageAction"
+		scope="prototype">
+		<property name="userMessageService" ref="userMessageServiceImpl"></property>
+	</bean>
+
+	<bean id="orderTicketsAction" class="com.jmu.orderticket.action.OrderTicketsAction"
+		scope="prototype">
+		<property name="ticketsService" ref="ticketsServiceImpl"></property>
+	</bean>
+
+	<bean id="orderListAction" class="com.jmu.orderticket.action.OrderListAction"
+		scope="prototype">
+		<property name="ordersService" ref="ordersServiceImpl"></property>
+	</bean>
+
+	<bean id="makeFlightAction" class="com.jmu.orderticket.action.MakeFlightAction"
+		scope="prototype">
+		<property name="flightService" ref="flightServiceImpl"></property>
+		<property name="flightDateService" ref="flightDateServiceImpl"></property>
+	</bean>
+
+	<bean id="flightDateAction" class="com.jmu.orderticket.action.FlightDateAction"
+		scope="prototype">
+		<property name="flightDateService" ref="flightDateServiceImpl"></property>
+		<property name="flightService" ref="flightServiceImpl"></property>
+	</bean>
+
+</beans>

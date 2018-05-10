@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		type : "GET",
+		url : "listallflight",
+		dataType : "json",
+		success : function(data) {
+			var table = document.getElementsByName("listflight")[0];
+			var n = 1;
+			for (var i = 0; i < data.length; i++) {
+				var tr = table.insertRow(table.rows.length);
+				tr.id = table.rows.length;
+				var obj = data[i];
+				var td;
+				for ( var p in obj) {
+					if (p == '') {
+						break;
+					}
+					if (p == 'fid') {
+						td = tr.insertCell(tr.cells.length);
+						td.innerText = n;
+						n++;
+						continue;
+					}
+					td = tr.insertCell(tr.cells.length);
+					td.innerText = obj[p];
+				}
+				td = tr.insertCell(6);
+				var $temp = $("<button type='submit' onclick=arrange('"
+						+ table.rows.length + "')>安排航班</button>");
+				$temp.appendTo(td);
+				td = tr.insertCell(7);
+				var $temp = $("<button type='submit' onclick=remove('"
+						+ table.rows.length + "')>取消航班</button>");
+				$temp.appendTo(td);
+			}
+		}
+	});
+
+	function arrange(ob) {
+		var col = document.getElementById(ob).cells;
+		var text = col[1].innerHTML + "," + col[2].innerHTML + ","
+				+ col[3].innerHTML + "," + col[4].innerHTML + ","
+				+ col[5].innerHTML;
+		document.cookie = text;
+		window.location.href = "arrangeflight.html";
+	}
+
+	function remove(ob) {
+		var col = document.getElementsByTagName('table')[0].rows[ob - 1].cells;
+		window.location.href = "removeflight?fno=" + col[1].innerText;
+	}
+
+	function goback() {
+		window.location.href = "admin.html";
+	}
+</script>
+</head>
+<body>
+	<table name="listflight" border="1" cellspacing="0" cellpadding="10">
+		<tr>
+			<td>序号</td>
+			<td>航班号</td>
+			<td>起始地</td>
+			<td>目的地</td>
+			<td>时长</td>
+			<td>价格</td>
+			<td>安排航班</td>
+			<td>取消航班</td>
+		</tr>
+	</table>
+	<button onclick="goback()">返回主菜单</button>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<label>航班号：</label>
+	<div id="fno1"></div>
+	<label>起始地：</label>
+	<div id="splace1"></div>
+	<label>目的地：</label>
+	<div id="eplace1"></div>
+	<label>时长：</label>
+	<div id="time1"></div>
+	<label>价格：</label>
+	<div id="price1"></div>
+
+	<form action="arrangeflight" method="post">
+		<input type="hidden" name="fno" id="fno"> <input type="hidden"
+			name="splace" id="splace"> <input type="hidden" name="eplace"
+			id="eplace"> <input type="hidden" name="time" id="time">
+		<input type="hidden" name="price" id="price"> <label>起飞时间：</label><input
+			type="datetime-local" value="2018-06-24T13:59:00" name="date"><br>
+		<label>机票数量：</label><input type="text" name="number"> <input
+			type="submit" value="确定">
+	</form>
+
+</body>
+<script type="text/javascript">
+	var coArr = document.cookie.split(",");
+	var fid = document.getElementById("fno");
+	fid.value = coArr[0];
+	var fid1 = document.getElementById("fno1");
+	fid1.innerText = coArr[0];
+
+	var splace = document.getElementById("splace");
+	splace.value = coArr[1];
+	var splace1 = document.getElementById("splace1");
+	splace1.innerText = coArr[1];
+
+	var eplace = document.getElementById("eplace");
+	eplace.value = coArr[2];
+	var eplace1 = document.getElementById("eplace1");
+	eplace1.innerText = coArr[2];
+
+	var totalprice = document.getElementById("price");
+	totalprice.value = coArr[4];
+	var totalprice1 = document.getElementById("price1");
+	totalprice1.innerText = coArr[4];
+
+	var time = document.getElementById("time");
+	time.value = coArr[3];
+	var time1 = document.getElementById("time1");
+	time1.innerText = coArr[3];
+</script>
+</html>

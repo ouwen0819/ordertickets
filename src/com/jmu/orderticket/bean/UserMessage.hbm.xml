@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-5-5 16:37:49 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jmu.orderticket.bean.UserMessage" table="USERMESSAGE">
+        <id name="umid" type="java.lang.Integer">
+            <column name="UMID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="age" type="int">
+            <column name="AGE" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="SEX" />
+        </property>
+        <property name="idcard" type="java.lang.String">
+            <column name="IDCARD" />
+        </property>
+        <property name="birthdate" type="java.lang.String">
+            <column name="BIRTHDATE" />
+        </property>
+        <property name="uuid" type="java.lang.String">
+            <column name="UUID" />
+        </property>
+    </class>
+</hibernate-mapping>

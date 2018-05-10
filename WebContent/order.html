@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<label>航班号：</label>
+	<div id="fno1"></div>
+	<label>起始地：</label>
+	<div id="splace1"></div>
+	<label>目的地：</label>
+	<div id="eplace1"></div>
+	<label>时长：</label>
+	<div id="time1"></div>
+	<label>起飞时间：</label>
+	<div id="datetime1"></div>
+	<label>订单总额：</label>
+	<div id="totalprice1"></div>
+
+	<form action="orderlist" method="post">
+		<input type="hidden" name="fno" id="fno"> <input type="hidden"
+			name="splace" id="splace"> <input type="hidden" name="eplace"
+			id="eplace"> <input type="hidden" name="time" id="time">
+		<input type="hidden" name="datetime" id="datetime"> <input
+			type="hidden" name="price" id="totalprice"> <label>姓名：</label><input
+			type="text" name="name"> <label>身份证号：</label><input
+			type="text" name="idcard"> <label>电话号码：</label><input
+			type="text" name="phone"> <input type="submit" value="提交订单">
+	</form>
+</body>
+<script type="text/javascript">
+	var coArr = document.cookie.split(",");
+	var fid = document.getElementById("fno");
+	fid.value = coArr[1];
+	var fid1 = document.getElementById("fno1");
+	fid1.innerText = coArr[1];
+
+	var splace = document.getElementById("splace");
+	splace.value = coArr[2];
+	var splace1 = document.getElementById("splace1");
+	splace1.innerText = coArr[2];
+
+	var eplace = document.getElementById("eplace");
+	eplace.value = coArr[3];
+	var eplace1 = document.getElementById("eplace1");
+	eplace1.innerText = coArr[3];
+
+	var time = document.getElementById("time");
+	time.value = coArr[5];
+	var time1 = document.getElementById("time1");
+	time1.innerText = coArr[5];
+
+	var datetime = document.getElementById("datetime");
+	datetime.value = coArr[6];
+	var datetime1 = document.getElementById("datetime1");
+	datetime1.innerText = coArr[6];
+
+	var totalprice=document.getElementById("totalprice");
+	totalprice.value=coArr[4];
+	var totalprice1 = document.getElementById("totalprice1");
+	totalprice1.innerText = coArr[4];
+</script>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		type : "GET",
+		url : "getuser",
+		dataType : "json",
+		success : function(data) {
+			var usernamediv = document.getElementsByTagName('label')[0];
+			usernamediv.innerText = data;
+		}
+	});
+	$.ajax({
+		type : "GET",
+		url : "mainorder",
+		dataType : "json",
+		success : function(data) {
+			console.log(data.length);
+			var table = document.getElementsByName("mainorder")[0];
+			var n = 1;
+			for (var i = 0; i < data.length; i++) {
+				var tr = table.insertRow(table.rows.length);
+				tr.id = table.rows.length;
+				var obj = data[i];
+				var td;
+				for ( var p in obj) {
+					if (p == '') {
+						break;
+					}
+					if (p == 'fno') {
+						td = tr.insertCell(tr.cells.length);
+						td.innerText = n;
+						n++;
+					}
+					td = tr.insertCell(tr.cells.length);
+					td.innerText = obj[p];
+				}
+				td = tr.insertCell(8);
+				var $temp = $("<button type='submit' onclick=order('"
+						+ table.rows.length + "')>订票</button>");
+				$temp.appendTo(td);
+			}
+		}
+	});
+
+	$.ajax({
+		type : "GET",
+		url : "myorders",
+		dataType : "json",
+		success : function(data) {
+			var table = document.getElementsByName("historyorder")[0];
+			var n = 1;
+			for (var i = 0; i < data.length; i++) {
+				var tr = table.insertRow(table.rows.length);
+				tr.id = table.rows.length;
+				var obj = data[i];
+				var td;
+				for ( var p in obj) {
+					if (p == '') {
+						break;
+					}
+					if (p == 'omid') {
+						td = tr.insertCell(tr.cells.length);
+						td.innerText = n;
+						n++;
+					}
+					td = tr.insertCell(tr.cells.length);
+					td.innerText = obj[p];
+				}
+				td = tr.insertCell(11);
+				var $temp = $("<button type='submit' onclick=change('"
+						+ table.rows.length + "')>改签</button>");
+				$temp.appendTo(td);
+				td = tr.insertCell(12);
+				var $temp1 = $("<button type='submit' onclick=back('"
+						+ table.rows.length + "')>退票</button>");
+				$temp1.appendTo(td);
+
+			}
+		}
+	});
+
+	$.ajax({
+		type : "GET",
+		url : "getmessage",
+		dataType : "json",
+		success : function(data) {
+			var table = document.getElementsByName("message")[0];
+			var tr = table.insertRow(table.rows.length);
+			tr.id = table.rows.length;
+			var obj = data;
+			var td;
+			for ( var p in obj) {
+				if (p == '') {
+					break;
+				}
+				if (p == 'umid') {
+					continue;
+				}
+				td = tr.insertCell(tr.cells.length);
+				td.innerText = obj[p];
+			}
+			td = tr.insertCell(6);
+			var $temp = $("<button type='submit' onclick=edit('"
+					+ table.rows.length + "')>编辑</button>");
+			$temp.appendTo(td);
+		}
+	});
+
+	function edit(ob) {
+		var col = document.getElementById("message").rows[ob-1].cells;
+		window.location.href = "editmessage?username=" + col[5].innerText;
+	}
+
+	function change(ob) {
+		var col = document.getElementById("historyorder").rows[ob-1].cells;
+		window.location.href = "getchange?startplace=" + col[3].innerText
+				+ "&&endplace=" + col[4].innerText + "&&date="
+				+ col[7].innerText + "&&name=" + col[8].innerText;
+	}
+	function back(ob) {
+		var flag=confirm("你确定要退票吗？");
+		if(flag){
+		var col = document.getElementById("historyorder").rows[ob-1].cells;
+		window.location.href = "deleteorder?startplace=" + col[3].innerText
+				+ "&&endplace=" + col[4].innerText + "&&date="
+				+ col[7].innerText + "&&name=" + col[8].innerText;
+		}
+	}
+
+	function order(ob) {
+		var col = document.getElementById(ob).cells;
+		var text = col[0].innerHTML + "," + col[1].innerHTML + ","
+				+ col[2].innerHTML + "," + col[3].innerHTML + ","
+				+ col[4].innerHTML + "," + col[5].innerHTML + ","
+				+ col[6].innerHTML;
+		document.cookie = text;
+		window.location.href = "order.html";
+	}
+
+	function destory() {
+		$.ajax({
+			type : "GET",
+			url : "logout",
+			success : function(data) {
+				window.location.href = "login.html";
+			}
+		});
+	}
+
+	window.onload = function() {
+		$("#order").hide();
+		$("#history").hide();
+		$("#edit").hide();
+	}
+
+	$(document).ready(function() {
+		$(".main").click(function() {
+			$("#main").show();
+			$("#order").hide();
+			$("#history").hide();
+			$("#edit").hide();
+		});
+
+		$(".order").click(function() {
+			$("#order").show();
+			$("#main").hide();
+			$("#history").hide();
+			$("#edit").hide();
+		});
+
+		$(".history").click(function() {
+			$("#history").show();
+			$("#main").hide();
+			$("#order").hide();
+			$("#edit").hide();
+		});
+
+		$(".edit").click(function() {
+			$("#edit").show();
+			$("#main").hide();
+			$("#history").hide();
+			$("#order").hide();
+		});
+
+	});
+</script>
+</head>
+<body>
+	<div>
+		<label></label>
+		<button onclick="destory()">注销</button>
+	</div>
+	<div>
+		<button class="main">首页</button>
+		<button class="order">订票</button>
+		<button class="history">历史订单</button>
+		<button class="edit">编辑个人信息</button>
+	</div>
+	<div id="main">
+		<table name="mainorder" border="1" cellspacing="0" cellpadding="10">
+			<tr>
+				<td>序号</td>
+				<td>航班号</td>
+				<td>起始地</td>
+				<td>目的地</td>
+				<td>价格</td>
+				<td>时长</td>
+				<td>起飞时间</td>
+				<td>余票</td>
+				<td>订票</td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="order">
+		<form action="ordertickets" method="post">
+			<label>出发地:</label> <input type="text" name="startplace"> <br>
+			<br> <label>目的地:</label> <input type="text" name="endplace">
+			<br> <br> <label>日期:</label> <input type="date" name="time">
+			<br> <br> <input type="submit" value="查询">
+		</form>
+	</div>
+
+	<div id="history">
+		<table id="historyorder" name="historyorder" border="1"
+			cellspacing="0" cellpadding="10">
+			<tr>
+				<td>序号</td>
+				<td>订单号</td>
+				<td>航班号</td>
+				<td>起始地</td>
+				<td>目的地</td>
+				<td>价格</td>
+				<td>时长</td>
+				<td>起飞时间</td>
+				<td>姓名</td>
+				<td>电话号码</td>
+				<td>下单时间</td>
+				<td>改签</td>
+				<td>退票</td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="edit">
+		<table id="message" name="message" border="1" cellspacing="0"
+			cellpadding="10">
+			<tr>
+				<td>真实姓名</td>
+				<td>年龄</td>
+				<td>性别</td>
+				<td>身份证号</td>
+				<td>出生日期</td>
+				<td>用户名</td>
+				<td>操作</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

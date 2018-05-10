@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="default" namespace="/" extends="struts-default">
+
+		<interceptors>
+			<interceptor-stack name="prepareStack">
+				<interceptor-ref name="paramsPrepareParamsStack">
+					<param name="prepare.alwaysInvokePrepare">false</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="prepareStack"></default-interceptor-ref>
+
+		<action name="ajaxregister" class="userAction" method="ajaxregister">
+			<result type="stream" name="ajax-success">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+
+		<action name="register" class="userAction" method="register">
+			<result name="register">/usermessage.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="checkImg" class="checkImgAction"></action>
+
+		<action name="login" class="userAction" method="login">
+			<result name="login">/homepage.html</result>
+			<result name="adminlogin">/admin.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="usermessage" class="userMessageAction" method="usermessage">
+			<result>/homepage.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="ordertickets" class="orderTicketsAction" method="ordertickets">
+			<result name="ordertickets">/success.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="ajax" class="orderTicketsAction" method="ajax">
+		</action>
+
+		<action name="getuser" class="userAction" method="getuser"></action>
+
+		<action name="logout" class="userAction" method="logout"></action>
+
+		<action name="mainorder" class="orderTicketsAction" method="mainorder"></action>
+
+		<action name="myorders" class="orderListAction" method="myorders"></action>
+
+		<action name="changeorder" class="orderListAction" method="changeorder"></action>
+
+		<action name="getmessage" class="userMessageAction" method="getmessage"></action>
+
+		<action name="getusermessage" class="userMessageAction" method="getusermessage"></action>
+
+		<action name="getadmin" class="makeFlightAction" method="getadmin"></action>
+
+		<action name="adminlogout" class="makeFlightAction" method="adminlogout"></action>
+
+		<action name="listflight" class="makeFlightAction" method="listflight"></action>
+
+		<action name="listallflight" class="makeFlightAction" method="listallflight"></action>
+
+		<action name="listflightdate" class="flightDateAction" method="listflightdate"></action>
+
+		<action name="arrangeflight" class="flightDateAction" method="arrangeflight">
+			<result name="arrangeflight">/listflightdate.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="removeflightdate" class="makeFlightAction"
+			method="removeflightdate">
+			<result name="removeflightdate">/listflightdate.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="removeflight" class="makeFlightAction" method="removeflight">
+			<result name="removeflight">/listallflight.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="makefligt" class="makeFlightAction" method="makefligt">
+			<result name="makefligt">/listflight.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="editusermessage" class="userMessageAction"
+			method="editusermessage">
+			<result name="editusermessage">/homepage.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="editmessage" class="userMessageAction" method="editmessage">
+			<result name="editmessage">/editmessage.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="deleteorder" class="orderListAction" method="deleteorder">
+			<result name="deleteorder">/index.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="againorder" class="orderListAction" method="againorder">
+			<result name="againorder">/index.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="getchange" class="orderListAction" method="getchange">
+			<result name="change">/changeorder.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+		<action name="orderlist" class="orderListAction" method="orderlist">
+			<result name="orderlist">/index.html</result>
+			<result name="fail">/fail.html</result>
+		</action>
+
+	</package>
+
+</struts>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+function main() {
+	window.location.href = "homepage.html";
+}
+</script>
+</head>
+<body>
+	<div>完善你的个人信息</div>
+	<form action="usermessage" method="post">
+		<label>真实姓名：</label><input type="text" name="name"><br>
+		<label>年龄：</label><input type="text" name="age"><br> <label>性别：</label><input
+			type="text" name="sex"><br> <label>身份证号：</label><input
+			type="text" name="idcard"><br> <label>出生日期：</label><input
+			type="date" name="birthdate"><br> <input type="submit"
+			value="开启你的聪明之旅"><button onclick="main()">下次再说</button>
+	</form>
+</body>
+</html>

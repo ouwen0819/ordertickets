@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-5-5 16:37:49 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jmu.orderticket.bean.Orders" table="ORDERS">
+        <id name="oid" type="java.lang.Integer">
+            <column name="OID" />
+            <generator class="native" />
+        </id>
+        <property name="omid" type="java.lang.String">
+            <column name="OMID" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="idcard" type="java.lang.String">
+            <column name="IDCARD" />
+        </property>
+        <property name="phone" type="java.lang.String">
+            <column name="PHONE" />
+        </property>
+        <property name="date" type="java.lang.String">
+            <column name="DATE" />
+        </property>
+        <property name="ouid" type="java.lang.String">
+            <column name="OUID" />
+        </property>
+        <property name="ofid" type="java.lang.String">
+            <column name="OFID" />
+        </property>
+        <property name="ofdid" type="java.lang.String">
+            <column name="OFDID" />
+        </property>
+    </class>
+</hibernate-mapping>

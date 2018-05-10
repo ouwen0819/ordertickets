@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		type : "GET",
+		url : "myorders",
+		dataType : "json",
+		success : function(data) {
+			var table = document.getElementsByTagName('table')[0];
+			var n = 1;
+			for (var i = 0; i < data.length; i++) {
+				var tr = table.insertRow(table.rows.length);
+				tr.id = table.rows.length;
+				var obj = data[i];
+				var td;
+				for ( var p in obj) {
+					if (p == '') {
+						break;
+					}
+					if (p == 'omid') {
+						td = tr.insertCell(tr.cells.length);
+						td.innerText = n;
+						n++;
+					}
+					td = tr.insertCell(tr.cells.length);
+					td.innerText = obj[p];
+				}
+				td = tr.insertCell(11);
+				var $temp = $("<button type='submit' onclick=change('"
+						+ table.rows.length + "')>改签</button>");
+				$temp.appendTo(td);
+				td = tr.insertCell(12);
+				var $temp1 = $("<button type='submit' onclick=back('"
+						+ table.rows.length + "')>退票</button>");
+				$temp1.appendTo(td);
+
+			}
+		}
+	});
+
+	function change(ob) {
+		var col = document.getElementById(ob).cells;
+		window.location.href = "getchange?startplace=" + col[3].innerText
+				+ "&&endplace=" + col[4].innerText + "&&date="
+				+ col[7].innerText + "&&name=" + col[8].innerText;
+	}
+
+	function back(ob) {
+		var flag = confirm("你确定要退票吗？");
+		if (flag) {
+			var col = document.getElementsByTagName('table')[0].rows[ob-1].cells;
+			window.location.href = "deleteorder?startplace=" + col[3].innerText
+					+ "&&endplace=" + col[4].innerText + "&&date="
+					+ col[7].innerText + "&&name=" + col[8].innerText;
+		}
+	}
+	function goback() {
+		window.location.href="homepage.html";
+	}
+</script>
+</head>
+<body>
+	<table border="1" cellspacing="0" cellpadding="10">
+		<tr>
+			<td>序号</td>
+			<td>订单号</td>
+			<td>航班号</td>
+			<td>起始地</td>
+			<td>目的地</td>
+			<td>价格</td>
+			<td>时长</td>
+			<td>起飞时间</td>
+			<td>姓名</td>
+			<td>电话号码</td>
+			<td>下单时间</td>
+			<td>改签</td>
+			<td>退票</td>
+		</tr>
+	</table>
+	<button onclick="goback()">返回主菜单</button>
+</body>
+</html>

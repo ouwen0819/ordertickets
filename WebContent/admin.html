@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		type : "GET",
+		url : "getadmin",
+		dataType : "json",
+		success : function(data) {
+			var usernamediv = document.getElementsByTagName('label')[0];
+			usernamediv.innerText = data;
+		}
+	});
+
+	function destory() {
+		$.ajax({
+			type : "GET",
+			url : "adminlogout",
+			success : function(data) {
+				window.location.href = "login.html";
+			}
+		});
+	}
+
+	function makeflight() {
+		window.location.href = "makeflight.html";
+	}
+
+	function arrangeflight() {
+		window.location.href = "listallflight.html";
+	}
+
+	function listflightdate() {
+		window.location.href = "listflightdate.html";
+	}
+</script>
+
+</head>
+<body>
+	<div>
+		<label></label>
+		<button onclick="destory()">注销</button>
+	</div>
+
+	<button onclick="makeflight()">制定航班</button>
+
+	<button onclick="arrangeflight()">安排航班</button>
+
+	<button onclick="listflightdate()">查看航班所有信息</button>
+
+</body>
+</html>

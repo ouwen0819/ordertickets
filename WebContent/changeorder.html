@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		type : "GET",
+		url : "changeorder",
+		dataType : "json",
+		success : function(data) {
+			var table = document.getElementsByTagName('table')[0];
+			var n = 1;
+			for (var i = 0; i < data.length; i++) {
+				var tr = table.insertRow(table.rows.length);
+				tr.id = table.rows.length;
+				var obj = data[i];
+				var td;
+				for ( var p in obj) {
+					if (p == '') {
+						break;
+					}
+					if (p == 'fno') {
+						td = tr.insertCell(tr.cells.length);
+						td.innerText = n;
+						n++;
+					}
+					td = tr.insertCell(tr.cells.length);
+					td.innerText = obj[p];
+				}
+				td = tr.insertCell(8);
+				var $temp = $("<button type='submit' onclick=order('"
+						+ table.rows.length + "')>订票</button>");
+				$temp.appendTo(td);
+			}
+		}
+	});
+	function order(ob) {
+		var col = document.getElementById(ob).cells;
+		window.location.href = "againorder?newdate=" + col[6].innerText
+				+ "&&fno=" + col[1].innerText;
+	}
+</script>
+</head>
+<body>
+	<table border="1" cellspacing="0" cellpadding="10">
+		<tr>
+			<td>序号</td>
+			<td>航班号</td>
+			<td>起始地</td>
+			<td>目的地</td>
+			<td>价格</td>
+			<td>时长</td>
+			<td>起飞时间</td>
+			<td>余票</td>
+			<td>订票</td>
+		</tr>
+	</table>
+</body>
+</html>

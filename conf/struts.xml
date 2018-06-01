@@ -26,7 +26,7 @@
 
 		<action name="register" class="userAction" method="register">
 			<result name="register">/usermessage.html</result>
-			<result name="fail">/fail.html</result>
+			<result name="fail">/registerfail.html</result>
 		</action>
 
 		<action name="checkImg" class="checkImgAction"></action>
@@ -35,11 +35,12 @@
 			<result name="login">/homepage.html</result>
 			<result name="adminlogin">/admin.html</result>
 			<result name="fail">/fail.html</result>
+			<result name="codefail">/codefail.html</result>
 		</action>
 
 		<action name="usermessage" class="userMessageAction" method="usermessage">
 			<result>/homepage.html</result>
-			<result name="fail">/fail.html</result>
+			<result name="fail">/usermessagefail.html</result>
 		</action>
 
 		<action name="ordertickets" class="orderTicketsAction" method="ordertickets">
@@ -98,7 +99,7 @@
 		<action name="editusermessage" class="userMessageAction"
 			method="editusermessage">
 			<result name="editusermessage">/homepage.html</result>
-			<result name="fail">/fail.html</result>
+			<result name="fail">/editusermessagefail.html</result>
 		</action>
 
 		<action name="editmessage" class="userMessageAction" method="editmessage">
@@ -123,7 +124,9 @@
 
 		<action name="orderlist" class="orderListAction" method="orderlist">
 			<result name="orderlist">/index.html</result>
-			<result name="fail">/fail.html</result>
+			<result name="fail">/orderlistfail.html</result>
+			<result name="neworderfail">/neworderfail.html</result>
+			<result name="deletefail">/deletefail.html</result>
 		</action>
 
 	</package>

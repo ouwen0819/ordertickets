@@ -44,6 +44,7 @@ public class FlightDateAction extends ActionSupport implements ModelDriven<Fligh
 
 	private FlightDate flightDate = new FlightDate();
 
+	//安排航班
 	public String arrangeflight() {
 		String startplace=ServletActionContext.getRequest().getParameter("splace");
 		String endplace=ServletActionContext.getRequest().getParameter("eplace");	
@@ -53,6 +54,7 @@ public class FlightDateAction extends ActionSupport implements ModelDriven<Fligh
 		return "arrangeflight";
 	}
 	
+	//显示所有航班信息
 	public void listflightdate(){
 		List<FlightDateMessage> list=flightDateService.getflightdate();
 		String jsonStr = new Gson().toJson(list);

@@ -3,29 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link
+	href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,700'
+	rel='stylesheet' type='text/css'>
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/templatemo-style.css" rel="stylesheet">
+
+<style type="text/css">
+body {
+	background-image: url(./picture/n.jpg);
+}
+</style>
+
 </head>
 <body>
-	<label>航班号：</label>
-	<div id="fno1"></div>
-	<label>起始地：</label>
-	<div id="splace1"></div>
-	<label>目的地：</label>
-	<div id="eplace1"></div>
-	<label>时长：</label>
-	<div id="time1"></div>
-	<label>价格：</label>
-	<div id="price1"></div>
+	<div class="templatemo-flex-row flex-content-row">
+		<div class="templatemo-content-widget white-bg col-2">
+			<div class="table-responsive">
+				<table class="table">
+					<tbody>
+						<tr>
+							<td><div class="circle green-bg"></div></td>
+							<td><label>航班号：</label></td>
+							<td><div id="fno1"></div></td>
+						</tr>
+						<tr>
+							<td><div class="circle pink-bg"></div></td>
+							<td><label>起始地：</label></td>
+							<td><div id="splace1"></div></td>
+						</tr>
+						<tr>
+							<td><div class="circle yellow-bg"></div></td>
+							<td><label>目的地：</label></td>
+							<td><div id="eplace1"></div></td>
+						</tr>
 
-	<form action="arrangeflight" method="post">
-		<input type="hidden" name="fno" id="fno"> <input type="hidden"
-			name="splace" id="splace"> <input type="hidden" name="eplace"
-			id="eplace"> <input type="hidden" name="time" id="time">
-		<input type="hidden" name="price" id="price"> <label>起飞时间：</label><input
-			type="datetime-local" value="2018-06-24T13:59:00" name="date"><br>
-		<label>机票数量：</label><input type="text" name="number"> <input
-			type="submit" value="确定">
-	</form>
+						<tr>
+							<td><div class="circle blue-bg"></div></td>
+							<td><label>时长：</label></td>
+							<td><div id="time1"></div></td>
+						</tr>
+						<tr>
+							<td><div class="circle green-bg"></div></td>
+							<td><label>价格：</label></td>
+							<td><div id="price1"></div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="templatemo-flex-row flex-content-row">
+		<div class="col-1">
+			<div class="panel panel-default margin-10">
+				<div class="panel-heading">
+					<h2 class="text-uppercase">查询机票</h2>
+				</div>
+				<div class="panel-body">
+					<form action="arrangeflight" class="templatemo-login-form">
 
+						<input type="hidden" name="fno" id="fno"> <input
+							type="hidden" name="splace" id="splace"> <input
+							type="hidden" name="eplace" id="eplace"> <input
+							type="hidden" name="time" id="time"><input type="hidden"
+							name="price" id="price">
+						<div class="form-group">
+							<label>起飞时间</label> <input type="datetime-local"
+								value="2018-06-24T13:59:00" name="date" class="form-control"
+								placeholder="Enter Datetime" required>
+						</div>
+
+						<div class="form-group">
+							<label>机票数量</label> <input type="number" name="number"
+								class="form-control" placeholder="Enter Number" required>
+						</div>
+
+						<div class="form-group">
+							<button type="submit" class="templatemo-blue-button">确定</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 <script type="text/javascript">
 	var coArr = document.cookie.split(",");
@@ -44,10 +106,10 @@
 	var eplace1 = document.getElementById("eplace1");
 	eplace1.innerText = coArr[2];
 
-	var totalprice = document.getElementById("price");
-	totalprice.value = coArr[4];
-	var totalprice1 = document.getElementById("price1");
-	totalprice1.innerText = coArr[4];
+	var price = document.getElementById("price");
+	price.value = coArr[4];
+	var price1 = document.getElementById("price1");
+	price1.innerText = coArr[4];
 
 	var time = document.getElementById("time");
 	time.value = coArr[3];

@@ -36,7 +36,7 @@ public class TicketsDaoImpl implements TicketsDao {
 	public List<Object[]> getFreeFlightDate() {
 		String sql = "SELECT y.FNO,y.STARTPLACE,y.ENDPLACE,y.PRICE,y.TIME,t.DATE,t.NUMBER from flightdate t,flight y where t.FFID = y.FID";
 		Query query = getSession().createSQLQuery(sql);
-		List<Object[]> freeflight = query.setFirstResult((int) (Math.random() * 10)).setMaxResults(5).list();
+		List<Object[]> freeflight = query.setFirstResult((int) (Math.random() * 10)).setMaxResults(10).list();
 		return freeflight;
 	}
 

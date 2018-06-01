@@ -33,12 +33,14 @@ public class OrderTicketsAction extends ActionSupport implements ModelDriven<Fli
 
 	private static List<FlightMessage> list = null;
 
+	//查询机票
 	public String ordertickets() {
 		list = ticketsService.orderTicketsByDate(flightMessage.getTime(), flightMessage.getStartplace(),
 				flightMessage.getEndplace());
 		return "ordertickets";
 	}
 
+	//获取符合条件的航班信息
 	public void ajax() throws IOException {
 		String jsonStr = new Gson().toJson(list);
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -49,6 +51,7 @@ public class OrderTicketsAction extends ActionSupport implements ModelDriven<Fli
 
 	private List<FlightMessage> mainlist = null;
 
+	//获取热门景点航班
 	public void mainorder() {
 		mainlist = ticketsService.showFreeFlight();
 		String jsonStr = new Gson().toJson(mainlist);

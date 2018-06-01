@@ -49,6 +49,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>, Prep
 		return inputStream;
 	}
 
+	//ajax验证用户名唯一性
 	public String ajaxregister() throws UnsupportedEncodingException {
 		boolean flag = userService.getAjax(user);
 		if (flag) {
@@ -63,6 +64,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>, Prep
 		user = new User();
 	}
 
+	//注册
 	public String register() {
 		if (user.getUsername()!= null && user.getPassword() != null && user.getPhone()!= null
 				&& user.getEmail() != null) {
@@ -95,12 +97,13 @@ public class UserAction extends ActionSupport implements ModelDriven<User>, Prep
 		this.checkcode = checkcode;
 	}
 
+	//登录
 	public String login() {
 		// 判断验证码程序
 		// 从Session中获得验证码的随机值
 		String checkcode1 = (String) ServletActionContext.getRequest().getSession().getAttribute("checkcode");
 		if (!checkcode.equalsIgnoreCase(checkcode1)) {
-			return "fail";
+			return "codefail";
 		}
 		if (role.equals("1")) {
 			boolean flag = userService.login(user.getUsername(), user.getPassword());
@@ -121,6 +124,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>, Prep
 		}
 	}
 
+	//ajax获取用户名
 	public void getuser() {
 		String username = (String) ServletActionContext.getRequest().getSession().getAttribute("username");
 		String jsonStr = new Gson().toJson(username);
@@ -134,6 +138,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>, Prep
 		}
 	}
 
+	//注销
 	public void logout() {
 		ServletActionContext.getRequest().getSession().invalidate();
 	}

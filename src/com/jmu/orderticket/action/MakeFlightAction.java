@@ -40,12 +40,14 @@ public class MakeFlightAction extends ActionSupport implements ModelDriven<Fligh
 		this.flightService = flightService;
 	}
 
+	//制定航班
 	public String makefligt() {
 		ServletActionContext.getRequest().getSession().setAttribute("flight", flight);
 		flightService.increase(flight);
 		return "makefligt";
 	}
 
+	//获取管理员
 	public void getadmin() {
 		String adminname = (String) ServletActionContext.getRequest().getSession().getAttribute("adminname");
 		String jsonStr = new Gson().toJson(adminname);
@@ -59,6 +61,7 @@ public class MakeFlightAction extends ActionSupport implements ModelDriven<Fligh
 		}
 	}
 
+	//显示刚制定的航班
 	public void listflight() {
 		String jsonStr = new Gson().toJson(ServletActionContext.getRequest().getSession().getAttribute("flight"));
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -71,6 +74,7 @@ public class MakeFlightAction extends ActionSupport implements ModelDriven<Fligh
 		}
 	}
 	
+	//显示所有制定的航班
 	public void listallflight(){
 		List<Flight> list=flightService.getallflight();
 		String jsonStr = new Gson().toJson(list);
@@ -84,12 +88,14 @@ public class MakeFlightAction extends ActionSupport implements ModelDriven<Fligh
 		}
 	}
 	
+	//取消航班
 	public String removeflightdate(){
 		String fno = ServletActionContext.getRequest().getParameter("fno").trim();
 		flightDateService.remove(fno);
 		return "removeflightdate";
 	}
 
+	//取消刚制定的航班
 	public String removeflight() {
 		String fno = ServletActionContext.getRequest().getParameter("fno").trim();
 		flightService.remove(fno);
@@ -97,6 +103,7 @@ public class MakeFlightAction extends ActionSupport implements ModelDriven<Fligh
 		return "removeflight";
 	}
 
+	//注销
 	public void adminlogout() {
 		ServletActionContext.getRequest().getSession().invalidate();
 	}

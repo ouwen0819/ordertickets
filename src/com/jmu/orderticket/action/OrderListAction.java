@@ -35,6 +35,7 @@ public class OrderListAction extends ActionSupport implements ModelDriven<Orders
 		this.ordersService = ordersService;
 	}
 
+	//获取历史订单
 	public void myorders() {
 		List<OrderMessage> list = ordersService
 				.showorders((String) ServletActionContext.getRequest().getSession().getAttribute("username"));
@@ -50,6 +51,7 @@ public class OrderListAction extends ActionSupport implements ModelDriven<Orders
 		}
 	}
 
+	//下单
 	public String orderlist() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String placedate = simpleDateFormat.format(new Date());
@@ -78,6 +80,7 @@ public class OrderListAction extends ActionSupport implements ModelDriven<Orders
 		}
 	}
 
+	//改签
 	public String getchange() {
 		ServletActionContext.getRequest().getSession().setAttribute("startplace",
 				ServletActionContext.getRequest().getParameter("startplace").trim());
@@ -94,6 +97,7 @@ public class OrderListAction extends ActionSupport implements ModelDriven<Orders
 		return "change";
 	}
 
+	//获取符合改签要求的航班
 	public void changeorder() {
 		String startplace = (String) ServletActionContext.getRequest().getSession().getAttribute("startplace");
 		String endplace = (String) ServletActionContext.getRequest().getSession().getAttribute("endplace");
@@ -110,13 +114,14 @@ public class OrderListAction extends ActionSupport implements ModelDriven<Orders
 		}
 	}
 
+	//重新下单
 	public String againorder() {
 		String startplace = (String) ServletActionContext.getRequest().getSession().getAttribute("startplace");
 		String endplace = (String) ServletActionContext.getRequest().getSession().getAttribute("endplace");
 		String name = (String) ServletActionContext.getRequest().getSession().getAttribute("name");
 		String date = (String) ServletActionContext.getRequest().getSession().getAttribute("date");
 		String newdate = ServletActionContext.getRequest().getParameter("newdate").trim();
-		String fno=ServletActionContext.getRequest().getParameter("fno").trim();
+		String fno = ServletActionContext.getRequest().getParameter("fno").trim();
 
 		boolean flag = ordersService.placeneworder(startplace, endplace, name, date, newdate);
 		if (flag) {
@@ -124,12 +129,13 @@ public class OrderListAction extends ActionSupport implements ModelDriven<Orders
 			if (flag1) {
 				return "againorder";
 			} else {
-				return "fail";
+				return "neworderfail";
 			}
 		}
-		return "fail";
+		return "neworderfail";
 	}
 
+	//退票
 	public String deleteorder() {
 		String startplace = ServletActionContext.getRequest().getParameter("startplace").trim();
 		String endplace = ServletActionContext.getRequest().getParameter("endplace").trim();
@@ -141,10 +147,10 @@ public class OrderListAction extends ActionSupport implements ModelDriven<Orders
 			if (flag1) {
 				return "deleteorder";
 			} else {
-				return "fail";
+				return "deletefail";
 			}
 		}
-		return "fail";
+		return "deletefail";
 	}
 
 	private Orders orders;

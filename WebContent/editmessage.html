@@ -3,9 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link
+	href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,700'
+	rel='stylesheet' type='text/css'>
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/templatemo-style.css" rel="stylesheet">
+
+<style type="text/css">
+body {
+	background-image: url(./picture/j.jpg);
+}
+</style>
+
 <script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
 <script type="text/javascript">
-	.ajax({
+	$.ajax({
 		type : "GET",
 		url : "getusermessage",
 		dataType : "json",
@@ -20,17 +34,60 @@
 			}
 		}
 	});
+	
 </script>
 </head>
 <body>
-	<form action="editusermessage" method="post">
-		<input type="hidden" name="uuid"> <label>真实姓名： </label><input
-			type="text" name="name"> <br> <label>年龄：</label><input
-			type="text" name="age"><br> <label>性别：</label><input
-			type="text" name="sex"><br> <label>身份证号：</label><input
-			type="text" name="idcard"><br> <label>出生日期：</label><input
-			type="date" name="birthdate"><br> <input type="submit"
-			value="提交">
-	</form>
+	<div class="templatemo-flex-row flex-content-row">
+		<div class="col-1">
+			<div class="panel panel-default margin-10">
+				<div class="panel-heading">
+					<h2 class="text-uppercase">个人信息</h2>
+				</div>
+				<div class="panel-body">
+					<form action="editusermessage" class="templatemo-login-form" onsubmit="return checkform()">
+						<input type="hidden" name="uuid">
+						<div class="form-group">
+							<label>真实姓名</label> <input type="text" name="name"
+								class="form-control" placeholder="Enter Name" required>
+						</div>
+						<div class="form-group">
+							<label>年龄</label> <input type="number" name="age"
+								class="form-control" placeholder="Enter Age" required>
+						</div>
+
+						<div class="form-group">
+							<label>性别</label> <input type="text" name="sex"
+								class="form-control" placeholder="Enter Sex" required>
+						</div>
+
+						<div class="form-group">
+							<label>身份证号</label> <input id="idcard" type="text" name="idcard"
+								class="form-control" placeholder="Enter Idcard" required>
+						</div>
+
+						<div class="form-group">
+							<label>出生日期</label> <input type="date" name="birthdate"
+								class="form-control" placeholder="Enter Birthdate" required>
+						</div>
+
+						<div class="form-group">
+							<button type="submit" class="templatemo-blue-button">确认</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+<script type="text/javascript">
+function checkform() {
+	valid = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+	if (!valid.test(document.getElementById('idcard').value)) {
+		alert("请输入正确的身份证号格式");
+		return false;
+	}
+	return true;
+}
+</script>
 </html>

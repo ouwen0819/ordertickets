@@ -14,7 +14,7 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class CheckImgAction extends ActionSupport {
-	
+
 	/**
 	 * 
 	 */
@@ -40,7 +40,7 @@ public class CheckImgAction extends ActionSupport {
 		// 步骤四 四个随机数字
 		Graphics2D graphics2d = (Graphics2D) graphics;
 		// 设置输出字体
-		graphics2d.setFont(new Font("宋体", Font.BOLD, 18));
+		graphics2d.setFont(new Font("宋体", Font.BOLD, 40));
 
 		String words = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 		// String words =
@@ -49,7 +49,7 @@ public class CheckImgAction extends ActionSupport {
 		// 定义StringBuffer
 		StringBuffer sb = new StringBuffer();
 		// 定义x坐标
-		int x = 10;
+		int x = 50;
 		for (int i = 0; i < 4; i++) {
 			// 随机颜色
 			graphics2d
@@ -65,10 +65,10 @@ public class CheckImgAction extends ActionSupport {
 			char c = words.charAt(index);
 			sb.append(c);
 			// 将c 输出到图片
-			graphics2d.rotate(theta, x, 20);
-			graphics2d.drawString(String.valueOf(c), x, 20);
-			graphics2d.rotate(-theta, x, 20);
-			x += 30;
+			graphics2d.rotate(theta, x, 35);
+			graphics2d.drawString(String.valueOf(c), x, 35);
+			graphics2d.rotate(-theta, x, 35);
+			x += 60;
 		}
 
 		// 将生成的字母存入到session中

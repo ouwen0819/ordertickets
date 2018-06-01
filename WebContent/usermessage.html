@@ -3,22 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
-<script type="text/javascript">
-function main() {
-	window.location.href = "homepage.html";
-}
-</script>
+
+<!-- CSS -->
+<link rel='stylesheet'
+	href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
+<link rel="stylesheet" href="assets/css/reset.css">
+<link rel="stylesheet" href="assets/css/supersized.css">
+<link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
-	<div>完善你的个人信息</div>
-	<form action="usermessage" method="post">
-		<label>真实姓名：</label><input type="text" name="name"><br>
-		<label>年龄：</label><input type="text" name="age"><br> <label>性别：</label><input
-			type="text" name="sex"><br> <label>身份证号：</label><input
-			type="text" name="idcard"><br> <label>出生日期：</label><input
-			type="date" name="birthdate"><br> <input type="submit"
-			value="开启你的聪明之旅"><button onclick="main()">下次再说</button>
-	</form>
+	<div class="page-container">
+		<h1>完善你的个人信息</h1>
+		<form action="usermessage" method="post" onsubmit="return checkform()">
+			<input type="text" name="name" placeholder="Enter Realname" required>
+			<input type="text" name="age" placeholder="Enter Age" required>
+			<input type="text" name="sex" placeholder="Enter Sex" required><input id="idcard"
+				type="text" name="idcard" placeholder="Enter Idcard" required>
+			<input type="date" name="birthdate" placeholder="Enter Birthdate"
+				required>
+			<button type="submit">开启你的聪明之旅</button>
+		</form>
+	</div>
+	<!-- Javascript -->
+	<script src="assets/js/jquery-1.8.2.min.js"></script>
+	<script src="assets/js/supersized.3.2.7.min.js"></script>
+	<script src="assets/js/supersized-init.js"></script>
+	<script src="assets/js/scripts.js"></script>
+	<script type="text/javascript">
+		function checkform() {
+			valid = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+			if (!valid.test(document.getElementById('idcard').value)) {
+				alert("请输入正确的身份证号格式");
+				return false;
+			}
+			return true;
+		}
+	</script>
 </body>
 </html>

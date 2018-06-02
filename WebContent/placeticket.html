@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link
+	href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,700'
+	rel='stylesheet' type='text/css'>
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/templatemo-style.css" rel="stylesheet">
+
+<style type="text/css">
+body {
+	background-image: url(./picture/b.jpg);
+}
+
+select {
+	width: 70px;
+}
+</style>
+
+</head>
+<body>
+	<div class="templatemo-flex-row flex-content-row">
+		<div class="col-1">
+			<div class="panel panel-default margin-10">
+				<div class="panel-heading">
+					<h2 class="text-uppercase">查询机票</h2>
+				</div>
+				<div class="panel-body">
+					<form action="ordertickets" class="templatemo-login-form">
+						<div class="form-group">
+							<label>起始地</label> <select id="selProvince"></select> <select
+								name="startplace" id="selCity"></select>
+						</div>
+
+						<div class="form-group">
+							<label>目的地</label> <select id="selProvince1"></select> <select
+								name="endplace" id="selCity1"></select>
+						</div>
+
+						<div class="form-group">
+							<label>日期</label> <input type="date" name="time"
+								class="form-control" placeholder="Enter time" required>
+						</div>
+
+						<div class="form-group">
+							<button type="submit" class="templatemo-blue-button">查询</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/address.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/sel_address.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/sel_address2.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

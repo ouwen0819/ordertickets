@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link
+	href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,700'
+	rel='stylesheet' type='text/css'>
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/templatemo-style.css" rel="stylesheet">
+
+<style type="text/css">
+
+body {
+	background-image: url(./picture/i.jpg);
+}
+
+.button {
+    background-color: #e7e7e7; 
+    border: none;
+    color: black;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: #333333; 
+    color: white;
+}
+</style>
+
+<script type="text/javascript" src="scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		type : "GET",
+		url : "getmessage",
+		dataType : "json",
+		success : function(data) {
+			var table = document.getElementsByName("message")[0];
+			var tr = table.insertRow(table.rows.length);
+			tr.id = table.rows.length;
+			var obj = data;
+			var td;
+			for ( var p in obj) {
+				if (p == '') {
+					break;
+				}
+				if (p == 'umid') {
+					continue;
+				}
+				td = tr.insertCell(tr.cells.length);
+				td.innerText = obj[p];
+			}
+			td = tr.insertCell(6);
+			var $temp = $("<button class='button' type='submit' onclick=edit('"
+					+ table.rows.length + "')>编辑</button>");
+			$temp.appendTo(td);
+		}
+	});
+
+	function edit(ob) {
+		var col = document.getElementById("message").rows[ob - 1].cells;
+		window.location.href = "editmessage?username=" + col[5].innerText;
+	}
+</script>
+</head>
+<body>
+	<div class="templatemo-content-container">
+		<div class="templatemo-content-widget no-padding">
+			<div class="panel panel-default table-responsive">
+				<table id="message" name="message"
+					class="table table-striped table-bordered templatemo-user-table">
+					<thead>
+						<tr>
+							<td>真实姓名</td>
+							<td>年龄</td>
+							<td>性别</td>
+							<td>身份证号</td>
+							<td>出生日期</td>
+							<td>用户名</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
